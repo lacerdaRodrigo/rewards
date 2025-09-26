@@ -5,12 +5,16 @@ on:
   pull_request:
     branches: [main, master]
   schedule:
-    - cron: "0 5 * * *"
+    - cron: "0 5 * * *" # Roda todo dia às 02:00 BRT (05:00 UTC)
 
 jobs:
   test:
     timeout-minutes: 60
     runs-on: ubuntu-latest
+    env:
+      # Essas variáveis são para uso dos seus testes, não afetam o envio de e-mail.
+      MS_EMAIL: ${{ secrets.MS_EMAIL }}
+      MS_SENHA: ${{ secrets.MS_SENHA }}
     steps:
       - uses: actions/checkout@v4
       - uses: actions/setup-node@v4
@@ -24,10 +28,13 @@ jobs:
         run: npx playwright install --with-deps
 
       - name: Run Playwright tests
+        # A condição "if: always()" será aplicada na etapa de e-mail abaixo
+        # para garantir que ele rode mesmo se esta etapa falhar.
         run: npx playwright test
 
       # -----------------------------------------------
-      # ETAPA NOVA 1: COMPACTAR O RELATÓRIO HTML
+      # ETAPA 1: COMPACTAR O RELATÓRIO HTML
+      # (Substitui o upload-artifact para que possamos anexar)
       # -----------------------------------------------
       - name: Zip Playwright HTML Report
         uses: actions/zip@v1
@@ -37,35 +44,41 @@ jobs:
           dest: playwright-report.zip
 
       # -----------------------------------------------
-      # ETAPA NOVA 2: ENVIO DE E-MAIL COM ANEXO
+      # ETAPA 2: ENVIO DE E-MAIL COM ANEXO
+      # (Usando EMAIL_RELATORIO e SENHA_RELATORIO)
       # -----------------------------------------------
       - name: Send Test Report Email with Attachment
         uses: dawidd6/action-send-mail@v6
-        if: always()
+        if: always() # Garante que esta etapa sempre seja executada
         with:
+          # Configurações do Servidor SMTP (Exemplo: Gmail)
           server_address: smtp.gmail.com
           server_port: 465
           secure: true
 
-          username: ${{ secrets.EMAIL_USERNAME }}
-          password: ${{ secrets.EMAIL_PASSWORD }}
+          # Credenciais de autenticação (usando seus Secrets customizados)
+          username: ${{ secrets.EMAIL_RELATORIO }} # USANDO SEU NOME
+          password: ${{ secrets.SENHA_RELATORIO }} # USANDO SEU NOME
 
+          # Destinatário e Remetente
           to: ${{ secrets.REPORT_RECIPIENT }}
-          from: GitHub Actions Test Report <${{ secrets.EMAIL_USERNAME }}>
+          from: GitHub Actions Test Report <${{ secrets.EMAIL_RELATORIO }}>
 
+          # Assunto do Email (usa o status do Job para indicar Sucesso ou Falha)
           subject: |
             ${{ job.status == 'success' && '✅ SUCESSO' || '🚨 FALHA' }} | Playwright Tests | ${{ github.ref_name }}
 
+          # Corpo do Email com detalhes do pipeline
           body: |
             Olá,
 
             Os testes de Playwright foram concluídos com status: ${{ job.status }}.
 
-            O relatório HTML completo está anexado neste email. Para visualizar, faça o download do arquivo ZIP, descompacte-o e abra o arquivo 'index.html' no seu navegador.
+            O relatório HTML completo está anexado neste email. Para visualizar o relatório bonito, baixe o arquivo ZIP, descompacte-o e abra o arquivo 'index.html' no seu navegador.
 
             Pipeline: ${{ github.workflow }}
             Branch: ${{ github.ref_name }}
             Ver log completo: ${{ github.server_url }}/${{ github.repository }}/actions/runs/${{ github.run_id }}
 
-          # Configuração do Anexo
+          # Configuração do Anexo (o arquivo ZIP que criamos na etapa anterior)
           attachments: playwright-report.zip
