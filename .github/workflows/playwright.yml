@@ -5,11 +5,14 @@ on:
   pull_request:
     branches: [main, master]
   schedule:
-    - cron: "0 5 * * *"
+    - cron: "0 5 * * *" # Roda todo dia às 02:00 BRT (05:00 UTC)
 jobs:
   test:
     timeout-minutes: 60
     runs-on: ubuntu-latest
+    env: # <<< AQUI ENTRA
+      MS_EMAIL: ${{ secrets.MS_EMAIL }}
+      MS_SENHA: ${{ secrets.MS_SENHA }}
     steps:
       - uses: actions/checkout@v4
       - uses: actions/setup-node@v4
