@@ -33,18 +33,23 @@ jobs:
         run: npx playwright test
 
       # -----------------------------------------------
-      # 1. CONVERTER RELATÓRIO HTML PARA PDF
-      # Usa o próprio Playwright para "imprimir" o relatório HTML.
+      # 1. CONVERTER RELATÓRIO HTML PARA PDF (CORREÇÃO APLICADA)
       # -----------------------------------------------
       - name: Convert HTML Report to PDF
         if: always() # Garante que rode mesmo se o teste falhar
         run: |
-          # 1. Instala Playwright globalmente para usar o binário CLI
+          # 1. Instala Playwright globalmente (Garantia)
           npm install -g playwright
 
-          # 2. Usa o Playwright para abrir o index.html e salvá-lo como PDF
-          # NOTE: O relatório do Playwright é grande, então usamos um A0 landscape para caber tudo.
-          npx playwright pdf --path playwright-report/index.html --output report.pdf --format A0 --landscape
+          # 2. Verifica se o index.html existe (DEBUG)
+          echo "Verificando se o index.html existe:"
+          ls playwright-report/
+
+          # 3. Usa o Playwright para abrir o index.html e salvá-lo como PDF
+          # Usamos o `playwright report` para servir o HTML e, em seguida,
+          # o Playwright CLI para carregar e imprimir para PDF.
+          # O formato A3 é um bom meio-termo para relatórios.
+          npx playwright pdf playwright-report/index.html report.pdf --format A3 --landscape --timeout 60000
         shell: bash
 
       # -----------------------------------------------
