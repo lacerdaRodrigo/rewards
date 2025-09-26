@@ -1,93 +1,23 @@
-name: Playwright Tests
-on:
-  push:
-    branches: [main, master]
-  pull_request:
-    branches: [main, master]
-  schedule:
-    - cron: "0 5 * * *" # Roda todo dia às 02:00 BRT (05:00 UTC)
+- name: Run Playwright tests
+  run: npx playwright test --reporter=html
 
-jobs:
-  test:
-    timeout-minutes: 60
-    runs-on: ubuntu-latest
-    env:
-      # Variáveis de ambiente para o seu teste
-      MS_EMAIL: ${{ secrets.MS_EMAIL }}
-      MS_SENHA: ${{ secrets.MS_SENHA }}
+- name: Generate PDF Report
+  if: always()
+  run: node generate-pdf.js
 
-    steps:
-      - uses: actions/checkout@v4
-      - uses: actions/setup-node@v4
-        with:
-          node-version: lts/*
-
-      - name: Install dependencies
-        run: npm ci
-
-      - name: Install Playwright Browsers (Chromium)
-        # Instala o Chromium (base do Chrome) para os testes.
-        run: npx playwright install chromium --with-deps
-
-      - name: Run Playwright tests
-        run: npx playwright test
-
-      # -----------------------------------------------
-      # ETAPA 1: GERAÇÃO ESTÁVEL DO PDF
-      # Inicia um servidor web em background para o relatório e usa o Playwright para imprimir em PDF.
-      # -----------------------------------------------
-      - name: Start Report Server and Generate PDF
-        if: always()
-        run: |
-          # 1. Inicia o servidor do Playwright em background (porta 9000).
-          # O Playwright precisa ser servido para que a impressão em PDF funcione corretamente.
-          npx playwright show-report --host 0.0.0.0 --port 9000 & 
-
-          # 2. Espera 5 segundos para o servidor subir completamente.
-          echo "Aguardando 5 segundos para o servidor iniciar..."
-          sleep 5
-
-          # 3. Usa o Playwright para abrir a URL local e imprimir para PDF.
-          # Isso garante que o relatório carregue totalmente antes de ser salvo.
-          npx playwright pdf http://127.0.0.1:9000/index.html report.pdf --timeout 60000
-
-      # -----------------------------------------------
-      # ETAPA 2: ENVIO DE E-MAIL DO RELATÓRIO PDF
-      # -----------------------------------------------
-      - name: Send Test Report Email with PDF Attachment
-        uses: dawidd6/action-send-mail@v6
-        if: always() # Garante que rode mesmo se os testes falharem
-        with:
-          # Configurações do Servidor SMTP (Exemplo: Gmail)
-          server_address: smtp.gmail.com
-          server_port: 465
-          secure: true
-
-          # Credenciais de autenticação (usando seus Secrets)
-          username: ${{ secrets.EMAIL_RELATORIO }}
-          password: ${{ secrets.SENHA_RELATORIO }}
-
-          # Destinatário e Remetente
-          to: ${{ secrets.REPORT_RECIPIENT }}
-          from: GitHub Actions Test Report <${{ secrets.EMAIL_RELATORIO }}>
-
-          # Assunto do Email (usa o status do Job para indicar Sucesso ou Falha)
-          subject: |
-            ${{ job.status == 'success' && '✅ SUCESSO' || '🚨 FALHA' }} | Playwright Tests | Relatório PDF
-
-          # Corpo do Email com detalhes do pipeline
-          body: |
-            Olá,
-
-            Os testes de Playwright foram concluídos com status: ${{ job.status }}.
-
-            O relatório visual dos testes está ANEXADO neste email como **report.pdf**.
-
-            Pipeline: ${{ github.workflow }}
-            Branch: ${{ github.ref_name }}
-
-            Para ver o log completo do pipeline, clique no link abaixo:
-            ${{ github.server_url }}/${{ github.repository }}/actions/runs/${{ github.run_id }}
-
-          # Configuração do Anexo (apontando para o PDF gerado)
-          attachments: report.pdf
+- name: Send Test Report Email with PDF Attachment
+  uses: dawidd6/action-send-mail@v6
+  if: always()
+  with:
+    server_address: smtp.gmail.com
+    server_port: 465
+    secure: true
+    username: ${{ secrets.EMAIL_RELATORIO }}
+    password: ${{ secrets.SENHA_RELATORIO }}
+    to: ${{ secrets.REPORT_RECIPIENT }}
+    from: GitHub Actions Test Report <${{ secrets.EMAIL_RELATORIO }}>
+    subject: |
+      ${{ job.status == 'success' && '✅ SUCESSO' || '🚨 FALHA' }} | Playwright Tests | Relatório PDF
+    body: |
+      Relatório em PDF gerado automaticamente pela pipeline.
+    attachments: report.pdf
