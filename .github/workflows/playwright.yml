@@ -33,19 +33,23 @@ jobs:
         run: npx playwright test
 
       # -----------------------------------------------
-      # ETAPA 1: CONVERTE O RELATÓRIO HTML PARA PDF
-      # Usa uma Action confiável para renderizar e converter o HTML.
+      # ETAPA 1: GERAÇÃO ESTÁVEL DO PDF
+      # Inicia um servidor web em background para o relatório e usa o Playwright para imprimir em PDF.
       # -----------------------------------------------
-      - name: Convert HTML Report to PDF
-        uses: wsh-tools/html-to-pdf-action@v1.1
+      - name: Start Report Server and Generate PDF
         if: always()
-        with:
-          # Pasta onde o Playwright gera o relatório
-          source_path: playwright-report/
-          # Nome do arquivo de saída
-          output_file: report.pdf
-          # Argumentos para o Chrome Headless para impressão em modo paisagem
-          args: "--print-to-pdf --landscape --no-pdf-header-footer"
+        run: |
+          # 1. Inicia o servidor do Playwright em background (porta 9000).
+          # O Playwright precisa ser servido para que a impressão em PDF funcione corretamente.
+          npx playwright show-report --host 0.0.0.0 --port 9000 & 
+
+          # 2. Espera 5 segundos para o servidor subir completamente.
+          echo "Aguardando 5 segundos para o servidor iniciar..."
+          sleep 5
+
+          # 3. Usa o Playwright para abrir a URL local e imprimir para PDF.
+          # Isso garante que o relatório carregue totalmente antes de ser salvo.
+          npx playwright pdf http://127.0.0.1:9000/index.html report.pdf --timeout 60000
 
       # -----------------------------------------------
       # ETAPA 2: ENVIO DE E-MAIL DO RELATÓRIO PDF
@@ -77,7 +81,7 @@ jobs:
 
             Os testes de Playwright foram concluídos com status: ${{ job.status }}.
 
-            O relatório visual dos testes está ANEXADO neste email como **report.pdf**. Você pode abri-lo facilmente no seu celular ou desktop.
+            O relatório visual dos testes está ANEXADO neste email como **report.pdf**.
 
             Pipeline: ${{ github.workflow }}
             Branch: ${{ github.ref_name }}
