@@ -32,19 +32,20 @@ jobs:
         run: npx playwright test
 
       # -----------------------------------------------
-      # 1. COMPACTAR O RELATÓRIO HTML
-      # (Cria o arquivo 'playwright-report.zip')
+      # 1. COMPACTAR O RELATÓRIO HTML (FIXED)
+      # Usando uma Action funcional (Themour/zip-dir)
       # -----------------------------------------------
       - name: Zip Playwright HTML Report
-        uses: actions/zip@v1
+        uses: Themour/zip-dir@v1
         if: always() # Garante que o zip seja criado mesmo se o teste falhar
         with:
-          files: playwright-report/
-          dest: playwright-report.zip
+          # Pasta a ser compactada
+          directory: playwright-report
+          # Nome do arquivo de saída
+          output_name: playwright-report.zip
 
       # -----------------------------------------------
       # 2. ENVIO DE E-MAIL COM ANEXO
-      # (Envia o zip com o relatório completo)
       # -----------------------------------------------
       - name: Send Test Report Email with Attachment
         uses: dawidd6/action-send-mail@v6
