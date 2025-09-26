@@ -6,7 +6,7 @@ on:
   pull_request:
     branches: [main, master]
   schedule:
-    - cron: "0 22 * * *" # Roda todo dia às 02:00 BRT (05:00 UTC)
+    - cron: "0 22 * * *" # Roda todo dia às 19:00 BRT (22:00 UTC)
 
 jobs:
   test:
@@ -18,6 +18,7 @@ jobs:
 
     steps:
       - uses: actions/checkout@v4
+
       - uses: actions/setup-node@v4
         with:
           node-version: lts/*
@@ -28,7 +29,7 @@ jobs:
       - name: Install Playwright navegador
         run: npx playwright install chromium --with-deps
 
-      - name: Rodando testes  Playwright
+      - name: Rodando testes Playwright
         run: npx playwright test --reporter=html
 
       - name: Gerando Relatorio em PDF dos testes
@@ -49,14 +50,14 @@ jobs:
           subject: |
             ${{ job.status == 'success' && '✅ SUCESSO' || '🚨 FALHA' }} | Playwright Tests | Relatório PDF
           body: |
-             Olá,
+            Olá,
 
-            Dev, os testes de Playwright foram concluídos.
-            Os testes de Playwright foram concluídos com status: ${{ job.status }}.
+            Dev , os testes de Playwright foram concluídos.
+            Status dos testes: ${{ job.status }}.
 
-            O relatório HTML completo está ANEXADO neste email como **playwright-report.zip**. Para visualizar o relatório bonito e interativo, baixe o arquivo ZIP, descompacte-o e abra o arquivo 'index.html' no seu navegador.
+            O relatório completo está ANEXADO neste email como **report.pdf**.
+            Para visualizar, abra o arquivo PDF em seu leitor de PDF preferido.
 
-            Status: ${{ job.status }}
             Pipeline: ${{ github.workflow }}
             Branch: ${{ github.ref_name }}
             Commit SHA: ${{ github.sha }}
