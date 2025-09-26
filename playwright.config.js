@@ -29,7 +29,7 @@ export default defineConfig({
   /* Reporter to use. See https://playwright.dev/docs/test-reporters */
   reporter: [
     ["list"], // Saída simples no console
-    // ['html', { open: 'never' }] // Gera o relatório HTML, sem abrir automaticamente
+    ["html", { open: "never" }], // Gera o relatório HTML, sem abrir automaticamente
   ],
   /* Shared settings for all the projects below. See https://playwright.dev/docs/api/class-testoptions. */
   use: {
