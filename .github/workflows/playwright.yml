@@ -24,24 +24,31 @@ jobs:
       - name: Install dependencies
         run: npm ci
 
-      - name: Install Playwright Browsers
-        run: npx playwright install --with-deps
+      - name: Install Playwright Browsers (Chromium)
+        # Instala SOMENTE o Chromium (Base do Chrome)
+        run: npx playwright install chromium --with-deps
 
       - name: Run Playwright tests
         # Esta etapa gera a pasta 'playwright-report/'
         run: npx playwright test
 
       # -----------------------------------------------
-      # 1. COMPACTAR O RELATÓRIO HTML (USANDO COMANDO SHELL NATIVO)
-      # Esta é a solução definitiva e mais robusta.
+      # 1. CONVERTER RELATÓRIO HTML PARA PDF
+      # Usa o próprio Playwright para "imprimir" o relatório HTML.
       # -----------------------------------------------
-      - name: Zip Playwright HTML Report (Shell Command)
-        if: always() # Garante que o zip seja criado mesmo se o teste falhar
-        # Comando: zip -r (recursivo) [nome do arquivo de saída] [pasta de entrada]
-        run: zip -r playwright-report.zip playwright-report/
+      - name: Convert HTML Report to PDF
+        if: always() # Garante que rode mesmo se o teste falhar
+        run: |
+          # 1. Instala Playwright globalmente para usar o binário CLI
+          npm install -g playwright
+
+          # 2. Usa o Playwright para abrir o index.html e salvá-lo como PDF
+          # NOTE: O relatório do Playwright é grande, então usamos um A0 landscape para caber tudo.
+          npx playwright pdf --path playwright-report/index.html --output report.pdf --format A0 --landscape
+        shell: bash
 
       # -----------------------------------------------
-      # 2. ENVIO DE E-MAIL COM ANEXO
+      # 2. ENVIO DE E-MAIL COM ANEXO PDF
       # -----------------------------------------------
       - name: Send Test Report Email with Attachment
         uses: dawidd6/action-send-mail@v6
@@ -62,7 +69,7 @@ jobs:
 
           # Assunto do Email (indica Sucesso ou Falha)
           subject: |
-            ${{ job.status == 'success' && '✅ SUCESSO' || '🚨 FALHA' }} | Playwright Tests | ${{ github.ref_name }}
+            ${{ job.status == 'success' && '✅ SUCESSO' || '🚨 FALHA' }} | Playwright Tests | Relatório PDF
 
           # Corpo do Email
           body: |
@@ -70,14 +77,13 @@ jobs:
 
             Os testes de Playwright foram concluídos com status: ${{ job.status }}.
 
-            O relatório HTML completo está ANEXADO neste email como **playwright-report.zip**. Para visualizar o relatório bonito e interativo, baixe o arquivo ZIP, descompacte-o e abra o arquivo 'index.html' no seu navegador.
+            O relatório visual dos testes está ANEXADO neste email como **report.pdf**. Você pode abri-lo facilmente no seu celular ou desktop.
 
             Pipeline: ${{ github.workflow }}
             Branch: ${{ github.ref_name }}
-            Commit SHA: ${{ github.sha }}
 
             Para ver o log completo do pipeline, clique no link abaixo:
             ${{ github.server_url }}/${{ github.repository }}/actions/runs/${{ github.run_id }}
 
-          # Configuração que ANEXA o arquivo ZIP
-          attachments: playwright-report.zip
+          # Configuração que ANEXA o arquivo PDF (Arquivo de saída do passo anterior)
+          attachments: report.pdf
