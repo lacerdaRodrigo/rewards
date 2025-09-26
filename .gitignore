@@ -5,6 +5,6 @@ node_modules/
 /playwright-report/
 /blob-report/
 /playwright/.cache/
-tests/.playwright/.auth/user.json
+tests/..playwright/.auth/user.json
 .env
 test-results/
