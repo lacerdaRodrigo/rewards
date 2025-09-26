@@ -33,23 +33,17 @@ jobs:
         run: npx playwright test
 
       # -----------------------------------------------
-      # 1. CONVERTER RELATÓRIO HTML PARA PDF (CORREÇÃO APLICADA)
+      # 1. CONVERTER RELATÓRIO HTML PARA PDF
+      # Usa o próprio Playwright, com comando simplificado para evitar erros.
       # -----------------------------------------------
       - name: Convert HTML Report to PDF
         if: always() # Garante que rode mesmo se o teste falhar
         run: |
-          # 1. Instala Playwright globalmente (Garantia)
+          # Instala Playwright globalmente para usar o binário CLI
           npm install -g playwright
 
-          # 2. Verifica se o index.html existe (DEBUG)
-          echo "Verificando se o index.html existe:"
-          ls playwright-report/
-
-          # 3. Usa o Playwright para abrir o index.html e salvá-lo como PDF
-          # Usamos o `playwright report` para servir o HTML e, em seguida,
-          # o Playwright CLI para carregar e imprimir para PDF.
-          # O formato A3 é um bom meio-termo para relatórios.
-          npx playwright pdf playwright-report/index.html report.pdf --format A3 --landscape --timeout 60000
+          # Comando corrigido: Converte o index.html em report.pdf sem argumentos de formato
+          npx playwright pdf playwright-report/index.html report.pdf --timeout 60000
         shell: bash
 
       # -----------------------------------------------
@@ -90,5 +84,5 @@ jobs:
             Para ver o log completo do pipeline, clique no link abaixo:
             ${{ github.server_url }}/${{ github.repository }}/actions/runs/${{ github.run_id }}
 
-          # Configuração que ANEXA o arquivo PDF (Arquivo de saída do passo anterior)
+          # Configuração que ANEXA o arquivo PDF
           attachments: report.pdf
