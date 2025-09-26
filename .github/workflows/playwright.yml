@@ -32,17 +32,13 @@ jobs:
         run: npx playwright test
 
       # -----------------------------------------------
-      # 1. COMPACTAR O RELATÓRIO HTML (FIXED)
-      # Usando uma Action funcional (Themour/zip-dir)
+      # 1. COMPACTAR O RELATÓRIO HTML (USANDO COMANDO SHELL NATIVO)
+      # Esta é a solução definitiva e mais robusta.
       # -----------------------------------------------
-      - name: Zip Playwright HTML Report
-        uses: Themour/zip-dir@v1
+      - name: Zip Playwright HTML Report (Shell Command)
         if: always() # Garante que o zip seja criado mesmo se o teste falhar
-        with:
-          # Pasta a ser compactada
-          directory: playwright-report
-          # Nome do arquivo de saída
-          output_name: playwright-report.zip
+        # Comando: zip -r (recursivo) [nome do arquivo de saída] [pasta de entrada]
+        run: zip -r playwright-report.zip playwright-report/
 
       # -----------------------------------------------
       # 2. ENVIO DE E-MAIL COM ANEXO
