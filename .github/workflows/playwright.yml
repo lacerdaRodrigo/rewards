@@ -6,6 +6,7 @@ on:
     branches: [main, master]
   schedule:
     - cron: "0 5 * * *" # Roda todo dia às 02:00 BRT (05:00 UTC)
+
 jobs:
   test:
     timeout-minutes: 60
@@ -18,15 +19,60 @@ jobs:
       - uses: actions/setup-node@v4
         with:
           node-version: lts/*
+
       - name: Install dependencies
         run: npm ci
+
       - name: Install Playwright Browsers
         run: npx playwright install --with-deps
+
       - name: Run Playwright tests
+        # A condição "if: always()" será aplicada na etapa de e-mail abaixo
+        # para garantir que ele rode mesmo se esta etapa falhar.
         run: npx playwright test
+
       - uses: actions/upload-artifact@v4
         if: ${{ !cancelled() }}
         with:
           name: playwright-report
           path: playwright-report/
           retention-days: 30
+
+      # -----------------------------------------------
+      # NOVA ETAPA: ENVIO DE E-MAIL DO RELATÓRIO
+      # -----------------------------------------------
+      - name: Send Test Report Email
+        uses: dawidd6/action-send-mail@v6
+        # Garante que esta etapa sempre seja executada, independentemente do sucesso ou falha dos testes.
+        if: always()
+        with:
+          # Configurações do Servidor SMTP (Exemplo: Gmail)
+          server_address: smtp.gmail.com
+          server_port: 465
+          secure: true
+
+          # Credenciais de autenticação (usando Secrets do GitHub)
+          username: ${{ secrets.EMAIL_RELATORIO }}
+          password: ${{ secrets.SENHA_RELATORIO }}
+
+          # Destinatário e Remetente
+          to: ${{ secrets.REPORT_RECIPIENT }}
+          from: GitHub Actions Test Report <${{ secrets.EMAIL_RELATORIO }}>
+
+          # Assunto do Email (usa o status do Job para indicar Sucesso ou Falha)
+          subject: |
+            ${{ job.status == 'success' && '✅ SUCESSO' || '🚨 FALHA' }} | Playwright Tests | ${{ github.ref_name }}
+
+          # Corpo do Email com detalhes do pipeline
+          body: |
+            Olá,
+
+            Os testes de Playwright foram concluídos.
+
+            Status: ${{ job.status }}
+            Pipeline: ${{ github.workflow }}
+            Branch: ${{ github.ref_name }}
+            Commit SHA: ${{ github.sha }}
+
+            Para ver o log completo do pipeline, clique no link abaixo:
+            ${{ github.server_url }}/${{ github.repository }}/actions/runs/${{ github.run_id }}

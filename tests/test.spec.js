@@ -2,7 +2,7 @@
 import { test, expect } from "@playwright/test";
 import path from "path";
 import { faker } from "@faker-js/faker";
-import { PaginaBing } from "../pages/site/site";
+import { PaginaBing } from "../pages/paginaBing/site";
 import { LoginMicrosoft } from "../pages/login/login";
 
 const authFile = path.join(__dirname, ".playwright-auth/.auth/user.json");
@@ -39,215 +39,145 @@ test("Login conta Microsoft - Aprimorado", async ({ page, context }) => {
 });
 
 test.describe("Testes com Login Pré-Autenticado", () => {
-  test.use({ storageState: authFile }); // <-- CARREGA O ARQUIVO DE AUTENTICAÇÃO AQUI!
+  test.use({ storageState: authFile }); //CARREGA O ARQUIVO DE AUTENTICAÇÃO AQUI!
 
   test("Nome faker 01", async ({ page }) => {
-    const nome = faker.person.fullName();
-    await page.goto("https://www.bing.com/");
+    const paginaBing = new PaginaBing(page);
 
-    // Verifica se o seu nome (ou algum indicador de login) está visível
+    await paginaBing.siteBing("https://www.bing.com/");
+
     await expect(page.locator("//span[text()='Rodrigo']")).toHaveText(
       "Rodrigo"
-    );
+    ); // Verifica se o seu nome (ou algum indicador de login) está visível
 
-    const inputDigitarPesquisar = await page.getByRole("textbox", {
-      name: "0 caracteres de 2000",
-    });
-    await inputDigitarPesquisar.click();
-    await inputDigitarPesquisar.type(nome, { delay: 250 }); // simula digitação humana
-
-    const clicarBotaoPesquisar = await page.locator("#search_icon svg");
-    await clicarBotaoPesquisar.click();
-
+    await paginaBing.fazerPesquisa(nome);
+    await paginaBing.clicarBotaoPesquisar();
     await page.waitForTimeout(10000);
   });
 
   test("Nome faker 02", async ({ page }) => {
-    const nome = faker.person.fullName();
-    await page.goto("https://www.bing.com/");
+    const paginaBing = new PaginaBing(page);
 
-    // Verifica se o seu nome (ou algum indicador de login) está visível
+    await paginaBing.siteBing("https://www.bing.com/");
+
     await expect(page.locator("//span[text()='Rodrigo']")).toHaveText(
       "Rodrigo"
-    );
+    ); // Verifica se o seu nome (ou algum indicador de login) está visível
 
-    const inputDigitarPesquisar = await page.getByRole("textbox", {
-      name: "0 caracteres de 2000",
-    });
-    await inputDigitarPesquisar.click();
-    await inputDigitarPesquisar.type(nome, { delay: 250 }); // simula digitação humana
-
-    const clicarBotaoPesquisar = await page.locator("#search_icon svg");
-    await clicarBotaoPesquisar.click();
-
+    await paginaBing.fazerPesquisa(nome);
+    await paginaBing.clicarBotaoPesquisar();
     await page.waitForTimeout(10000);
   });
 
   test("Nome faker 03", async ({ page }) => {
-    const nome = faker.person.fullName();
-    await page.goto("https://www.bing.com/");
+    const paginaBing = new PaginaBing(page);
 
-    // Verifica se o seu nome (ou algum indicador de login) está visível
+    await paginaBing.siteBing("https://www.bing.com/");
+
     await expect(page.locator("//span[text()='Rodrigo']")).toHaveText(
       "Rodrigo"
-    );
+    ); // Verifica se o seu nome (ou algum indicador de login) está visível
 
-    const inputDigitarPesquisar = await page.getByRole("textbox", {
-      name: "0 caracteres de 2000",
-    });
-    await inputDigitarPesquisar.click();
-    await inputDigitarPesquisar.type(nome, { delay: 250 }); // simula digitação humana
-
-    const clicarBotaoPesquisar = await page.locator("#search_icon svg");
-    await clicarBotaoPesquisar.click();
-
+    await paginaBing.fazerPesquisa(nome);
+    await paginaBing.clicarBotaoPesquisar();
     await page.waitForTimeout(10000);
   });
 
   test("Nome faker 04", async ({ page }) => {
-    const nome = faker.person.fullName();
-    await page.goto("https://www.bing.com/");
+    const paginaBing = new PaginaBing(page);
 
-    // Verifica se o seu nome (ou algum indicador de login) está visível
+    await paginaBing.siteBing("https://www.bing.com/");
+
     await expect(page.locator("//span[text()='Rodrigo']")).toHaveText(
       "Rodrigo"
-    );
+    ); // Verifica se o seu nome (ou algum indicador de login) está visível
 
-    const inputDigitarPesquisar = await page.getByRole("textbox", {
-      name: "0 caracteres de 2000",
-    });
-    await inputDigitarPesquisar.click();
-    await inputDigitarPesquisar.type(nome, { delay: 250 }); // simula digitação humana
-
-    const clicarBotaoPesquisar = await page.locator("#search_icon svg");
-    await clicarBotaoPesquisar.click();
-
+    await paginaBing.fazerPesquisa(nome);
+    await paginaBing.clicarBotaoPesquisar();
     await page.waitForTimeout(10000);
   });
 
   test("Nome faker 05", async ({ page }) => {
-    const nome = faker.person.fullName();
-    await page.goto("https://www.bing.com/");
+    const paginaBing = new PaginaBing(page);
 
-    // Verifica se o seu nome (ou algum indicador de login) está visível
+    await paginaBing.siteBing("https://www.bing.com/");
+
     await expect(page.locator("//span[text()='Rodrigo']")).toHaveText(
       "Rodrigo"
-    );
+    ); // Verifica se o seu nome (ou algum indicador de login) está visível
 
-    const inputDigitarPesquisar = await page.getByRole("textbox", {
-      name: "0 caracteres de 2000",
-    });
-    await inputDigitarPesquisar.click();
-    await inputDigitarPesquisar.type(nome, { delay: 250 }); // simula digitação humana
-
-    const clicarBotaoPesquisar = await page.locator("#search_icon svg");
-    await clicarBotaoPesquisar.click();
-
+    await paginaBing.fazerPesquisa(nome);
+    await paginaBing.clicarBotaoPesquisar();
     await page.waitForTimeout(10000);
   });
 
   test("Nome faker 06", async ({ page }) => {
-    const nome = faker.person.fullName();
-    await page.goto("https://www.bing.com/");
+    const paginaBing = new PaginaBing(page);
 
-    // Verifica se o seu nome (ou algum indicador de login) está visível
+    await paginaBing.siteBing("https://www.bing.com/");
+
     await expect(page.locator("//span[text()='Rodrigo']")).toHaveText(
       "Rodrigo"
-    );
+    ); // Verifica se o seu nome (ou algum indicador de login) está visível
 
-    const inputDigitarPesquisar = await page.getByRole("textbox", {
-      name: "0 caracteres de 2000",
-    });
-    await inputDigitarPesquisar.click();
-    await inputDigitarPesquisar.type(nome, { delay: 250 }); // simula digitação humana
-
-    const clicarBotaoPesquisar = await page.locator("#search_icon svg");
-    await clicarBotaoPesquisar.click();
-
+    await paginaBing.fazerPesquisa(nome);
+    await paginaBing.clicarBotaoPesquisar();
     await page.waitForTimeout(10000);
   });
 
   test("Nome faker 07", async ({ page }) => {
-    const nome = faker.person.fullName();
-    await page.goto("https://www.bing.com/");
+    const paginaBing = new PaginaBing(page);
 
-    // Verifica se o seu nome (ou algum indicador de login) está visível
+    await paginaBing.siteBing("https://www.bing.com/");
+
     await expect(page.locator("//span[text()='Rodrigo']")).toHaveText(
       "Rodrigo"
-    );
+    ); // Verifica se o seu nome (ou algum indicador de login) está visível
 
-    const inputDigitarPesquisar = await page.getByRole("textbox", {
-      name: "0 caracteres de 2000",
-    });
-    await inputDigitarPesquisar.click();
-    await inputDigitarPesquisar.type(nome, { delay: 250 }); // simula digitação humana
-
-    const clicarBotaoPesquisar = await page.locator("#search_icon svg");
-    await clicarBotaoPesquisar.click();
-
+    await paginaBing.fazerPesquisa(nome);
+    await paginaBing.clicarBotaoPesquisar();
     await page.waitForTimeout(10000);
   });
 
   test("Nome faker 08", async ({ page }) => {
-    const nome = faker.person.fullName();
-    await page.goto("https://www.bing.com/");
+    const paginaBing = new PaginaBing(page);
 
-    // Verifica se o seu nome (ou algum indicador de login) está visível
+    await paginaBing.siteBing("https://www.bing.com/");
+
     await expect(page.locator("//span[text()='Rodrigo']")).toHaveText(
       "Rodrigo"
-    );
+    ); // Verifica se o seu nome (ou algum indicador de login) está visível
 
-    const inputDigitarPesquisar = await page.getByRole("textbox", {
-      name: "0 caracteres de 2000",
-    });
-    await inputDigitarPesquisar.click();
-    await inputDigitarPesquisar.type(nome, { delay: 250 }); // simula digitação humana
-
-    const clicarBotaoPesquisar = await page.locator("#search_icon svg");
-    await clicarBotaoPesquisar.click();
-
+    await paginaBing.fazerPesquisa(nome);
+    await paginaBing.clicarBotaoPesquisar();
     await page.waitForTimeout(10000);
   });
 
   test("Nome faker 09", async ({ page }) => {
-    const nome = faker.person.fullName();
-    await page.goto("https://www.bing.com/");
+    const paginaBing = new PaginaBing(page);
 
-    // Verifica se o seu nome (ou algum indicador de login) está visível
+    await paginaBing.siteBing("https://www.bing.com/");
+
     await expect(page.locator("//span[text()='Rodrigo']")).toHaveText(
       "Rodrigo"
-    );
+    ); // Verifica se o seu nome (ou algum indicador de login) está visível
 
-    const inputDigitarPesquisar = await page.getByRole("textbox", {
-      name: "0 caracteres de 2000",
-    });
-    await inputDigitarPesquisar.click();
-    await inputDigitarPesquisar.type(nome, { delay: 250 }); // simula digitação humana
-
-    const clicarBotaoPesquisar = await page.locator("#search_icon svg");
-    await clicarBotaoPesquisar.click();
-
+    await paginaBing.fazerPesquisa(nome);
+    await paginaBing.clicarBotaoPesquisar();
     await page.waitForTimeout(10000);
   });
 
   test("Nome faker 10", async ({ page }) => {
-    const nome = faker.person.fullName();
-    await page.goto("https://www.bing.com/");
+    const paginaBing = new PaginaBing(page);
 
-    // Verifica se o seu nome (ou algum indicador de login) está visível
+    await paginaBing.siteBing("https://www.bing.com/");
+
     await expect(page.locator("//span[text()='Rodrigo']")).toHaveText(
       "Rodrigo"
-    );
+    ); // Verifica se o seu nome (ou algum indicador de login) está visível
 
-    const inputDigitarPesquisar = await page.getByRole("textbox", {
-      name: "0 caracteres de 2000",
-    });
-    await inputDigitarPesquisar.click();
-    await inputDigitarPesquisar.type(nome, { delay: 250 }); // simula digitação humana
-
-    const clicarBotaoPesquisar = await page.locator("#search_icon svg");
-    await clicarBotaoPesquisar.click();
-
+    await paginaBing.fazerPesquisa(nome);
+    await paginaBing.clicarBotaoPesquisar();
     await page.waitForTimeout(10000);
   });
 });
