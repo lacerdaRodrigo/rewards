@@ -5,7 +5,6 @@ import { faker } from "@faker-js/faker";
 import { PaginaBing } from "../pages/site/site";
 import { LoginMicrosoft } from "../pages/login/login";
 
-const nome = faker.person.fullName();
 const authFile = path.join(__dirname, ".playwright-auth/.auth/user.json");
 
 test.use({ locale: "pt-BR" });
