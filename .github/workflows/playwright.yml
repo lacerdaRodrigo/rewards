@@ -49,5 +49,8 @@ jobs:
           subject: |
             ${{ job.status == 'success' && '✅ SUCESSO' || '🚨 FALHA' }} | Playwright Tests | Relatório PDF
           body: |
-            Relatório em PDF gerado automaticamente pela pipeline.
+            Olá, Os testes de Playwright foram concluídos com status: ${{ job.status }}. 
+            O relatório visual dos testes está ANEXADO neste email como **report.pdf**. 
+            Pipeline: ${{ github.workflow }} Branch: ${{ github.ref_name }} Para ver o log completo do pipeline, 
+            clique no link abaixo: ${{ github.server_url }}/${{ github.repository }}/actions/runs/${{ github.run_id }}
           attachments: report.pdf
