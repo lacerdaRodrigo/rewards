@@ -7,178 +7,197 @@ Este repositório automatiza o processo de obtenção de recompensas ao realizar
 Antes de iniciar, certifique-se de que sua máquina possui os seguintes programas instalados:
 
 - **Node.js** (versão recomendada: >= 18.x)
+
   - Site oficial: https://nodejs.org/
-- **npm** (gerenciador de pacotes do Node, já incluso ao instalar o Node.js)
-  - Documentação: https://docs.npmjs.com/
-- **Playwright** (instalado via npm)
-  - Documentação: https://playwright.dev/
-  - Instalação: `npm install -D @playwright/test`
-- **dotenv** (para variáveis de ambiente)
-  - Documentação: https://www.npmjs.com/package/dotenv
-  - Instalação: `npm install dotenv`
-- **Faker.js** (para geração de dados fake nos testes)
-  - Documentação: https://www.npmjs.com/package/@faker-js/faker
-  - Instalação: `npm install @faker-js/faker`
+  - **npm** (gerenciador de pacotes do Node, já incluso ao instalar o Node.js)
 
-> **Dica:** Após instalar o Node.js, basta rodar `npm ci` na raiz do projeto para instalar todas as dependências listadas acima automaticamente.
+    - Documentação: https://docs.npmjs.com/
+    - **Playwright** (instalado via npm)
 
-## Por que usamos o Playwright?
+      - Documentação: https://playwright.dev/
 
-O Playwright é um framework moderno e robusto para automação de testes de aplicações web, desenvolvido pela Microsoft. Ele foi escolhido neste projeto por diversos motivos:
+        - Instalação: `npm install -D @playwright/test`
+        - **dotenv** (para variáveis de ambiente)
 
-- **Desenvolvido pela Microsoft:** Traz confiabilidade, integração nativa com o ecossistema Microsoft e suporte contínuo.
-- **Suporte a múltiplos navegadores:** Permite testar facilmente em Chromium, Firefox e WebKit.
-- **Simulação avançada de usuário:** Possui recursos para simular o comportamento humano de forma realista, essencial para evitar bloqueios em sistemas de segurança.
-- **API moderna e intuitiva:** Facilita a escrita, manutenção e leitura dos testes.
-- **Execução rápida e paralela:** Otimiza o tempo de execução dos testes.
+          - Documentação: https://www.npmjs.com/package/dotenv
 
-Por ser uma tecnologia recente e em constante evolução, o Playwright oferece vantagens competitivas em relação a frameworks mais antigos, tornando-o uma excelente escolha para automação de fluxos complexos como o deste projeto.
+            - Instalação: `npm install dotenv`
+            - **Faker.js** (para geração de dados fake nos testes)
 
-## Por que usamos o Faker.js?
+              - Documentação: https://www.npmjs.com/package/@faker-js/faker
 
-O [Faker.js](https://www.npmjs.com/package/@faker-js/faker) é uma biblioteca para geração de dados aleatórios e fictícios ("fake data"). Utilizamos o Faker.js neste projeto para:
+                - Instalação: `npm install @faker-js/faker`
 
-- **Simular buscas reais:** Gerar termos de pesquisa variados e aleatórios, tornando o comportamento da automação mais próximo de um usuário humano.
-- **Evitar padrões repetitivos:** Reduzir o risco de bloqueio por sistemas anti-bot, já que as buscas não seguem sempre o mesmo padrão.
-- **Testar diferentes cenários:** Permitir que os testes cubram uma gama maior de situações, aumentando a robustez da automação.
+                > **Dica:** Após instalar o Node.js, basta rodar `npm ci` na raiz do projeto para instalar todas as dependências listadas acima automaticamente.
 
-Assim, o uso do Faker.js contribui diretamente para a eficácia e segurança do processo de automação de buscas e acúmulo de pontos no Bing Rewards.
+                ## Por que usamos o Playwright?
 
-## Por que usamos o dotenv?
+                O Playwright é um framework moderno e robusto para automação de testes de aplicações web, desenvolvido pela Microsoft. Ele foi escolhido neste projeto por diversos motivos:
 
-O [dotenv](https://www.npmjs.com/package/dotenv) é uma biblioteca que permite carregar variáveis de ambiente a partir de um arquivo `.env` para dentro do ambiente de execução do Node.js. Utilizamos o dotenv neste projeto para:
+                - **Desenvolvido pela Microsoft:** Traz confiabilidade, integração nativa com o ecossistema Microsoft e suporte contínuo.
+                - **Suporte a múltiplos navegadores:** Permite testar facilmente em Chromium, Firefox e WebKit.
+                - **Simulação avançada de usuário:** Possui recursos para simular o comportamento humano de forma realista, essencial para evitar bloqueios em sistemas de segurança.
+                - **API moderna e intuitiva:** Facilita a escrita, manutenção e leitura dos testes.
+                - **Execução rápida e paralela:** Otimiza o tempo de execução dos testes.
 
-- **Gerenciar credenciais de forma segura:** Permitir que informações sensíveis, como e-mails, senhas e destinatários, fiquem fora do código-fonte.
-- **Facilitar a configuração:** Cada usuário pode definir suas próprias variáveis de ambiente sem alterar o código do projeto.
-- **Automatizar diferentes ambientes:** Possibilita rodar o projeto em diferentes máquinas ou pipelines apenas trocando o arquivo `.env`.
+                Por ser uma tecnologia recente e em constante evolução, o Playwright oferece vantagens competitivas em relação a frameworks mais antigos, tornando-o uma excelente escolha para automação de fluxos complexos como o deste projeto.
 
-Assim, o uso do dotenv torna o projeto mais seguro, flexível e fácil de configurar, especialmente para automações que dependem de dados sensíveis ou variáveis que mudam conforme o ambiente.
+                ## Por que usamos o Faker.js?
 
-## Estrutura do Projeto
+                O [Faker.js](https://www.npmjs.com/package/@faker-js/faker) é uma biblioteca para geração de dados aleatórios e fictícios ("fake data"). Utilizamos o Faker.js neste projeto para:
 
-O projeto está organizado da seguinte forma:
+                - **Simular buscas reais:** Gerar termos de pesquisa variados e aleatórios, tornando o comportamento da automação mais próximo de um usuário humano.
+                - **Evitar padrões repetitivos:** Reduzir o risco de bloqueio por sistemas anti-bot, já que as buscas não seguem sempre o mesmo padrão.
+                - **Testar diferentes cenários:** Permitir que os testes cubram uma gama maior de situações, aumentando a robustez da automação.
 
-- **generate-pdf.js**: Script responsável por converter o relatório HTML dos testes em um arquivo PDF, facilitando o envio e o arquivamento dos resultados.
+                Assim, o uso do Faker.js contribui diretamente para a eficácia e segurança do processo de automação de buscas e acúmulo de pontos no Bing Rewards.
 
-- **package.json**: Arquivo que gerencia todas as dependências, scripts de automação e metadados do projeto Node.js.
+                ## Por que usamos o dotenv?
 
-- **playwright.config.js**: Arquivo de configuração do Playwright, onde são definidos parâmetros como timeout, navegadores suportados, diretórios de testes e outras opções de execução.
+                O [dotenv](https://www.npmjs.com/package/dotenv) é uma biblioteca que permite carregar variáveis de ambiente a partir de um arquivo `.env` para dentro do ambiente de execução do Node.js. Utilizamos o dotenv neste projeto para:
 
-- **pages/**: Diretório que centraliza a lógica de automação das páginas utilizadas nos testes, seguindo o padrão Page Object Model (POM):
+                - **Gerenciar credenciais de forma segura:** Permitir que informações sensíveis, como e-mails, senhas e destinatários, fiquem fora do código-fonte.
+                - **Facilitar a configuração:** Cada usuário pode definir suas próprias variáveis de ambiente sem alterar o código do projeto.
+                - **Automatizar diferentes ambientes:** Possibilita rodar o projeto em diferentes máquinas ou pipelines apenas trocando o arquivo `.env`.
 
-  - **login/**: Contém scripts e funções para automação do fluxo de login.
-    - `login.js`: Implementa os passos necessários para autenticação no Bing/Microsoft.
-  - **paginaBing/**: Contém scripts para interações específicas com a página de buscas do Bing.
-    - `site.js`: Implementa as ações de busca e manipulação da interface do Bing.
+                Assim, o uso do dotenv torna o projeto mais seguro, flexível e fácil de configurar, especialmente para automações que dependem de dados sensíveis ou variáveis que mudam conforme o ambiente.
 
-- **playwright-report/**: Pasta gerada automaticamente após a execução dos testes, contendo o relatório HTML detalhado dos resultados.
+                ## Estrutura do Projeto
 
-  - `index.html`: Arquivo principal do relatório visual dos testes.
+                O projeto está organizado da seguinte forma:
 
-- **test-results/**: Diretório onde são armazenados os resultados brutos e logs das execuções dos testes, útil para depuração e histórico.
+                - **generate-pdf.js**: Script responsável por converter o relatório HTML dos testes em um arquivo PDF, facilitando o envio e o arquivamento dos resultados.
 
-- **tests/**: Diretório com os arquivos de especificação dos testes automatizados.
+                - **package.json**: Arquivo que gerencia todas as dependências, scripts de automação e metadados do projeto Node.js.
 
-  - `test.spec.js`: Define os cenários, fluxos e validações que serão executados pelo Playwright.
+                - **playwright.config.js**: Arquivo de configuração do Playwright, onde são definidos parâmetros como timeout, navegadores suportados, diretórios de testes e outras opções de execução.
 
-- **.github/workflows/playwright.yml**: Arquivo de configuração da pipeline de integração contínua (CI) do GitHub Actions, responsável por automatizar a execução dos testes, geração de relatórios e envio de e-mails.
+                - **pages/**: Diretório que centraliza a lógica de automação das páginas utilizadas nos testes, seguindo o padrão Page Object Model (POM):
 
-## Sobre a Pipeline (CI/CD)
+                  - **login/**: Contém scripts e funções para automação do fluxo de login.
 
-A automação de testes e geração de relatórios é realizada por uma pipeline configurada no arquivo `.github/workflows/playwright.yml`, utilizando o GitHub Actions. O objetivo é garantir que todo push, pull request ou agendamento execute os testes de forma padronizada, confiável e sem intervenção manual.
+                    - `login.js`: Implementa os passos necessários para autenticação no Bing/Microsoft.
 
-### Etapas da Pipeline
+                      - **paginaBing/**: Contém scripts para interações específicas com a página de buscas do Bing.
 
-1. **Disparo Automático**
+                        - `site.js`: Implementa as ações de busca e manipulação da interface do Bing.
 
-   - A pipeline é executada automaticamente em três situações:
-     - Push ou pull request para as branches `main` e `master`.
-     - Agendamento diário às 06:00 da manhã (BRT), equivalente a 09:00 UTC, via cron.
-   - Isso garante que o projeto esteja sempre validado e atualizado.
+                        - **playwright-report/**: Pasta gerada automaticamente após a execução dos testes, contendo o relatório HTML detalhado dos resultados.
 
-2. **Checkout do Código**
+                          - `index.html`: Arquivo principal do relatório visual dos testes.
 
-- Utiliza a ação `actions/checkout` para baixar o código do repositório e garantir que a versão mais recente será testada.
+                          - **test-results/**: Diretório onde são armazenados os resultados brutos e logs das execuções dos testes, útil para depuração e histórico.
 
-3. **Configuração do Ambiente Node.js**
+                          - **tests/**: Diretório com os arquivos de especificação dos testes automatizados.
 
-- Instala a versão recomendada do Node.js usando `actions/setup-node`.
+                            - `test.spec.js`: Define os cenários, fluxos e validações que serão executados pelo Playwright.
 
-4. **Instalação de Dependências**
+                            - **.github/workflows/playwright.yml**: Arquivo de configuração da pipeline de integração contínua (CI) do GitHub Actions, responsável por automatizar a execução dos testes, geração de relatórios e envio de e-mails.
 
-- Executa `npm ci` para instalar todas as dependências do projeto de forma limpa e reprodutível.
+                            ## Sobre a Pipeline (CI/CD)
 
-5. **Instalação do Navegador Playwright**
+                            A automação de testes e geração de relatórios é realizada por uma pipeline configurada no arquivo `.github/workflows/playwright.yml`, utilizando o GitHub Actions. O objetivo é garantir que todo push, pull request ou agendamento execute os testes de forma padronizada, confiável e sem intervenção manual.
 
-- Instala o Chromium e suas dependências para garantir que os testes rodem em ambiente controlado.
+                            ### Etapas da Pipeline
 
-6. **Execução dos Testes Automatizados**
+                            1. **Disparo Automático**
 
-- Roda os testes Playwright com geração de relatório HTML detalhado.
-- O comando utilizado é `npx playwright test --reporter=html`.
+                               - A pipeline é executada automaticamente em três situações:
 
-7. **Geração de Relatório em PDF**
+                                 - Push ou pull request para as branches `main` e `master`.
 
-- Executa o script `generate-pdf.js` para converter o relatório HTML em PDF, facilitando o compartilhamento e arquivamento dos resultados.
+                                   - Agendamento diário às 06:00 da manhã (BRT), equivalente a 09:00 UTC, via cron.
 
-8. **Envio de E-mail com Relatório**
+                                     - Isso garante que o projeto esteja sempre validado e atualizado.
 
-- Utiliza a action `dawidd6/action-send-mail` para enviar o relatório PDF por e-mail ao destinatário configurado nas variáveis de ambiente.
-- O envio ocorre mesmo em caso de falha nos testes, garantindo visibilidade dos resultados.
+                                     2. **Checkout do Código**
 
-### Boas Práticas e Dicas
+                                     - Utiliza a ação `actions/checkout` para baixar o código do repositório e garantir que a versão mais recente será testada.
 
-- **Segurança:** As credenciais e destinatários de e-mail são gerenciados via GitHub Secrets, nunca ficando expostos no código.
-- **Reprodutibilidade:** O uso de `npm ci` e instalação controlada de navegadores garante que os testes rodem sempre no mesmo ambiente.
-- **Visibilidade:** O relatório em PDF é anexado ao e-mail, e o HTML fica disponível na pasta `playwright-report/`.
-- **Automação Completa:** Não é necessário executar comandos manuais para validar o projeto após um push ou PR.
+                                     3. **Configuração do Ambiente Node.js**
 
-### Por que existem timeouts elevados?
+                                     - Instala a versão recomendada do Node.js usando `actions/setup-node`.
 
-Os testes simulam o comportamento humano, incluindo tempos de espera maiores entre ações. Isso é fundamental para evitar que sistemas de segurança identifiquem a automação como um bot, prevenindo bloqueios e captchas. Portanto, o tempo total de execução pode ser maior do que o habitual em automações tradicionais.
+                                     4. **Instalação de Dependências**
 
-## Como rodar o projeto localmente
+                                     - Executa `npm ci` para instalar todas as dependências do projeto de forma limpa e reprodutível.
 
-1. **Clone o repositório:**
-   ```bash
-   git clone https://github.com/lacerdaRodrigo/rewards.git
-   cd rewards
-   ```
-2. **Instale as dependências:**
-   ```bash
-   npm ci
-   ```
-3. **Instale os navegadores do Playwright:**
-   ```bash
-   npx playwright install chromium --with-deps
-   ```
-4. **Configure as variáveis de ambiente:**
-   Crie um arquivo `.env` ou defina as variáveis necessárias:
+                                     5. **Instalação do Navegador Playwright**
 
-   - `MS_EMAIL`: E-mail de login para os testes
-   - `MS_SENHA`: Senha de login para os testes
-   - (Para envio de e-mail, configure também `EMAIL_RELATORIO`, `SENHA_RELATORIO`, `REPORT_RECIPIENT` nos secrets do GitHub ou localmente se for testar o envio)
+                                     - Instala o Chromium e suas dependências para garantir que os testes rodem em ambiente controlado.
 
-5. **Execute os testes:**
-   ```bash
-   npx playwright test -g
-   ```
-6. **Gerar relatório em PDF (opcional):**
-   ```bash
-   node generate-pdf.js
-   ```
+                                     6. **Execução dos Testes Automatizados**
 
-## Observações
+                                     - Roda os testes Playwright com geração de relatório HTML detalhado.
+                                     - O comando utilizado é `npx playwright test --reporter=html`.
 
-- O envio de e-mail do relatório em PDF está configurado apenas para rodar na pipeline do GitHub Actions.
-- Certifique-se de que as credenciais e secrets estejam corretamente configurados para evitar falhas na execução.
-- Os relatórios gerados podem ser encontrados nas pastas `playwright-report/` (HTML) e como `report.pdf` (PDF).
+                                     7. **Geração de Relatório em PDF**
 
----
+                                     - Executa o script `generate-pdf.js` para converter o relatório HTML em PDF, facilitando o compartilhamento e arquivamento dos resultados.
 
-Para dúvidas ou sugestões, abra uma issue no repositório.
+                                     8. **Envio de E-mail com Relatório**
 
----
+                                     - Utiliza a action `dawidd6/action-send-mail` para enviar o relatório PDF por e-mail ao destinatário configurado nas variáveis de ambiente.
+                                     - O envio ocorre mesmo em caso de falha nos testes, garantindo visibilidade dos resultados.
 
-© 2025 Rodrigo Lacerda. Todos os direitos reservados.
-Este projeto é open source e está disponível sob a licença MIT.
+                                     ### Boas Práticas e Dicas
+
+                                     - **Segurança:** As credenciais e destinatários de e-mail são gerenciados via GitHub Secrets, nunca ficando expostos no código.
+                                     - **Reprodutibilidade:** O uso de `npm ci` e instalação controlada de navegadores garante que os testes rodem sempre no mesmo ambiente.
+                                     - **Visibilidade:** O relatório em PDF é anexado ao e-mail, e o HTML fica disponível na pasta `playwright-report/`.
+                                     - **Automação Completa:** Não é necessário executar comandos manuais para validar o projeto após um push ou PR.
+
+                                     ### Por que existem timeouts elevados?
+
+                                     Os testes simulam o comportamento humano, incluindo tempos de espera maiores entre ações. Isso é fundamental para evitar que sistemas de segurança identifiquem a automação como um bot, prevenindo bloqueios e captchas. Portanto, o tempo total de execução pode ser maior do que o habitual em automações tradicionais.
+
+                                     ## Como rodar o projeto localmente
+
+                                     1. **Clone o repositório:**
+
+                                        ````bash
+                                           git clone https://github.com/lacerdaRodrigo/rewards.git
+                                              cd rewards
+                                                 ```
+                                                 2. **Instale as dependências:**
+                                                    ```bash
+                                                       npm ci
+                                                          ```
+                                                          3. **Instale os navegadores do Playwright:**
+                                                             ```bash
+                                                                npx playwright install chromium --with-deps
+                                                                   ```
+                                                                   4. **Configure as variáveis de ambiente:**
+                                                                      Crie um arquivo `.env` ou defina as variáveis necessárias:
+
+                                                                         - `MS_EMAIL`: E-mail de login para os testes
+                                                                            - `MS_SENHA`: Senha de login para os testes
+                                                                               - (Para envio de e-mail, configure também `EMAIL_RELATORIO`, `SENHA_RELATORIO`, `REPORT_RECIPIENT` nos secrets do GitHub ou localmente se for testar o envio)
+
+                                                                               5. **Execute os testes:**
+                                                                                  ```bash
+                                                                                     npx playwright test -g
+                                                                                        ```
+                                                                                        6. **Gerar relatório em PDF (opcional):**
+                                                                                           ```bash
+                                                                                              node generate-pdf.js
+                                                                                                 ```
+
+                                                                                                 ## Observações
+
+                                                                                                 - O envio de e-mail do relatório em PDF está configurado apenas para rodar na pipeline do GitHub Actions.
+                                                                                                 - Certifique-se de que as credenciais e secrets estejam corretamente configurados para evitar falhas na execução.
+                                                                                                 - Os relatórios gerados podem ser encontrados nas pastas `playwright-report/` (HTML) e como `report.pdf` (PDF).
+
+                                                                                                 ---
+
+                                                                                                 Para dúvidas ou sugestões, abra uma issue no repositório.
+
+                                                                                                 ---
+
+                                                                                                © 2025 Rodrigo Lacerda. Todos os direitos reservados.
+                                                                                                Este projeto é open source e está disponível sob a licença MIT.
+
+                                                                                                > Este README e parte do projeto foram elaborados com o auxílio de Inteligência Artificial (GitHub Copilot).
+
+                                        ````
