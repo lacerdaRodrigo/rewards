@@ -50,7 +50,7 @@ test.describe("Testes com Login Pré-Autenticado", () => {
     await expect(page.locator("//span[text()='Rodrigo']")).toHaveText(
       "Rodrigo"
     ); // Verifica se o seu nome (ou algum indicador de login) está visível
-
+    await page.waitForTimeout(10000);
     await paginaBing.fazerPesquisa(nome);
     await paginaBing.clicarBotaoPesquisar();
     await page.waitForTimeout(10000);
@@ -64,7 +64,7 @@ test.describe("Testes com Login Pré-Autenticado", () => {
     await expect(page.locator("//span[text()='Rodrigo']")).toHaveText(
       "Rodrigo"
     ); // Verifica se o seu nome (ou algum indicador de login) está visível
-
+    await page.waitForTimeout(10000);
     await paginaBing.fazerPesquisa(nome);
     await paginaBing.clicarBotaoPesquisar();
     await page.waitForTimeout(10000);
@@ -78,7 +78,7 @@ test.describe("Testes com Login Pré-Autenticado", () => {
     await expect(page.locator("//span[text()='Rodrigo']")).toHaveText(
       "Rodrigo"
     ); // Verifica se o seu nome (ou algum indicador de login) está visível
-
+    await page.waitForTimeout(10000);
     await paginaBing.fazerPesquisa(nome);
     await paginaBing.clicarBotaoPesquisar();
     await page.waitForTimeout(10000);
@@ -92,7 +92,7 @@ test.describe("Testes com Login Pré-Autenticado", () => {
     await expect(page.locator("//span[text()='Rodrigo']")).toHaveText(
       "Rodrigo"
     ); // Verifica se o seu nome (ou algum indicador de login) está visível
-
+    await page.waitForTimeout(10000);
     await paginaBing.fazerPesquisa(nome);
     await paginaBing.clicarBotaoPesquisar();
     await page.waitForTimeout(10000);
@@ -106,7 +106,7 @@ test.describe("Testes com Login Pré-Autenticado", () => {
     await expect(page.locator("//span[text()='Rodrigo']")).toHaveText(
       "Rodrigo"
     ); // Verifica se o seu nome (ou algum indicador de login) está visível
-
+    await page.waitForTimeout(10000);
     await paginaBing.fazerPesquisa(nome);
     await paginaBing.clicarBotaoPesquisar();
     await page.waitForTimeout(10000);
@@ -120,7 +120,7 @@ test.describe("Testes com Login Pré-Autenticado", () => {
     await expect(page.locator("//span[text()='Rodrigo']")).toHaveText(
       "Rodrigo"
     ); // Verifica se o seu nome (ou algum indicador de login) está visível
-
+    await page.waitForTimeout(10000);
     await paginaBing.fazerPesquisa(nome);
     await paginaBing.clicarBotaoPesquisar();
     await page.waitForTimeout(10000);
@@ -134,7 +134,7 @@ test.describe("Testes com Login Pré-Autenticado", () => {
     await expect(page.locator("//span[text()='Rodrigo']")).toHaveText(
       "Rodrigo"
     ); // Verifica se o seu nome (ou algum indicador de login) está visível
-
+    await page.waitForTimeout(10000);
     await paginaBing.fazerPesquisa(nome);
     await paginaBing.clicarBotaoPesquisar();
     await page.waitForTimeout(10000);
@@ -148,7 +148,7 @@ test.describe("Testes com Login Pré-Autenticado", () => {
     await expect(page.locator("//span[text()='Rodrigo']")).toHaveText(
       "Rodrigo"
     ); // Verifica se o seu nome (ou algum indicador de login) está visível
-
+    await page.waitForTimeout(10000);
     await paginaBing.fazerPesquisa(nome);
     await paginaBing.clicarBotaoPesquisar();
     await page.waitForTimeout(10000);
@@ -162,7 +162,7 @@ test.describe("Testes com Login Pré-Autenticado", () => {
     await expect(page.locator("//span[text()='Rodrigo']")).toHaveText(
       "Rodrigo"
     ); // Verifica se o seu nome (ou algum indicador de login) está visível
-
+    await page.waitForTimeout(10000);
     await paginaBing.fazerPesquisa(nome);
     await paginaBing.clicarBotaoPesquisar();
     await page.waitForTimeout(10000);
@@ -176,7 +176,7 @@ test.describe("Testes com Login Pré-Autenticado", () => {
     await expect(page.locator("//span[text()='Rodrigo']")).toHaveText(
       "Rodrigo"
     ); // Verifica se o seu nome (ou algum indicador de login) está visível
-
+    await page.waitForTimeout(10000);
     await paginaBing.fazerPesquisa(nome);
     await paginaBing.clicarBotaoPesquisar();
     await page.waitForTimeout(10000);
