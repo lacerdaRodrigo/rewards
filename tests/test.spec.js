@@ -4,6 +4,7 @@ import path from "path";
 import { faker } from "@faker-js/faker";
 import { PaginaBing } from "../pages/paginaBing/site";
 import { LoginMicrosoft } from "../pages/login/login";
+import fs from "fs";
 
 const nome = faker.person.fullName();
 const authFile = path.join(__dirname, ".playwright-auth/.auth/user.json");
@@ -180,5 +181,16 @@ test.describe("Testes com Login Pré-Autenticado", () => {
     await paginaBing.fazerPesquisa(nome);
     await paginaBing.clicarBotaoPesquisar();
     await page.waitForTimeout(10000);
+    await limparPastaAuth();
   });
 });
+
+function limparPastaAuth() {
+  const pastaAuth = path.join(__dirname, ".playwright-auth/.auth");
+  if (fs.existsSync(pastaAuth)) {
+    const arquivos = fs.readdirSync(pastaAuth);
+    for (const arquivo of arquivos) {
+      fs.unlinkSync(path.join(pastaAuth, arquivo));
+    }
+  }
+}

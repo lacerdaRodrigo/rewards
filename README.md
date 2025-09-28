@@ -161,28 +161,30 @@ Os testes simulam o comportamento humano, incluindo tempos de espera maiores ent
    - `MS_SENHA`: Senha de login para os testes
    - (Para envio de e-mail, configure também `EMAIL_RELATORIO`, `SENHA_RELATORIO`, `REPORT_RECIPIENT` nos secrets do GitHub ou localmente se for testar o envio)
 
-5. **Execute os testes:**
+5. **Execute todos os testes:**
+
    ```bash
-   npx playwright test -g
+   npx playwright test --reporter=html
    ```
-6. **Gerar relatório em PDF (opcional):**
+
+6. **Execute apenas o teste de login aprimorado em modo visual (headed):**
+   Este comando executa somente o teste chamado "Login conta Microsoft - Aprimorado" abrindo o navegador para visualização:
+   ```bash
+   npx playwright test --headed -g "Login conta Microsoft - Aprimorado"
+   ```
+7. **Gerar relatório em PDF (opcional):**
    ```bash
    node generate-pdf.js
    ```
 
 ## Observações
 
-- O envio de e-mail do relatório em PDF está configurado apenas para rodar na pipeline do GitHub Actions.
-- Certifique-se de que as credenciais e secrets estejam corretamente configurados para evitar falhas na execução.
-- Os relatórios gerados podem ser encontrados nas pastas `playwright-report/` (HTML) e como `report.pdf` (PDF).
-
----
-
 Para dúvidas ou sugestões, abra uma issue no repositório.
-
----
 
 © 2025 Rodrigo Lacerda. Todos os direitos reservados.
 Este projeto é open source e está disponível sob a licença MIT.
 Projeto desenvolvido com o auxílio de Inteligência Artificial (GitHub Copilot).
-````
+
+```
+
+```
