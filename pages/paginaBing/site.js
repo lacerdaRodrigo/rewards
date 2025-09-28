@@ -22,7 +22,7 @@ export class PaginaBing {
     console.log(`Pesquisa aleatória selecionada: ${termoPesquisa}`);
 
     const inputDigitarPesquisar = await this.page.getByRole("textbox", {
-      name: "0 caracteres de 2000",
+      termoPesquisa: "0 caracteres de 2000",
     });
 
     await inputDigitarPesquisar.click();
