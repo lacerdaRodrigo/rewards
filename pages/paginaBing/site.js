@@ -17,13 +17,16 @@ export class PaginaBing {
     await this.page.waitForTimeout(5500); // 5.5 segundos Espera a página carregar
   }
 
-  async fazerPesquisa(nome) {
+  async fazerPesquisa(pesquisaAleatorio) {
+    const termoPesquisa = pesquisaAleatorio();
+    console.log(`Pesquisa aleatória selecionada: ${termoPesquisa}`);
+
     const inputDigitarPesquisar = await this.page.getByRole("textbox", {
       name: "0 caracteres de 2000",
     });
 
     await inputDigitarPesquisar.click();
-    await inputDigitarPesquisar.type(nome, { delay: 250 }); // simula digitação humana
+    await inputDigitarPesquisar.type(termoPesquisa, { delay: 250 }); // simula digitação humana
   }
 
   async clicarBotaoPesquisar() {
