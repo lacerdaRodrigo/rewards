@@ -45,7 +45,7 @@ test.describe("Testes com Login Pré-Autenticado", () => {
 
   test("Executar 30 pesquisas aleatórias no Bing", async ({ page }) => {
     const paginaBing = new PaginaBing(page);
-
+    await limparPastaAuth();
     // Abre só UMA vez
     await paginaBing.siteBing("https://www.bing.com/");
 
@@ -56,10 +56,7 @@ test.describe("Testes com Login Pré-Autenticado", () => {
     for (let i = 1; i <= 30; i++) {
       console.log(`🔁 Execução ${i}`);
 
-      const termoAleatorio = pesquisaAleatorio();
-      console.log("Pesquisa usada:", termoAleatorio);
-
-      await paginaBing.fazerPesquisa(termoAleatorio);
+      await paginaBing.fazerPesquisa(pesquisaAleatorio);
       await paginaBing.clicarBotaoPesquisar();
 
       await page.waitForTimeout(10000);
@@ -221,7 +218,7 @@ function limparPastaAuth() {
   }
 }
 
-function pesquisaAleatorio() {
+function criarGeradorDePesquisas() {
   const pesquisas = [
     "como fazer arroz",
     "qual a previsão do tempo",
@@ -338,6 +335,19 @@ function pesquisaAleatorio() {
     "como tirar mancha de roupa",
   ];
 
-  const indice = Math.floor(Math.random() * pesquisas.length);
-  return pesquisas[indice];
+  // Embaralha os itens para evitar repetição
+  const pesquisasEmbaralhadas = [...pesquisas].sort(() => Math.random() - 0.5);
+  let indiceAtual = 0;
+
+  return function proximaPesquisa() {
+    if (indiceAtual >= pesquisasEmbaralhadas.length) {
+      return null; // acabou a lista
+    }
+    return pesquisasEmbaralhadas[indiceAtual++];
+  };
 }
+
+// ✅ Cria o gerador (isso é reiniciado a cada execução da pipeline)
+const pesquisaAleatorio = criarGeradorDePesquisas();
+
+export { pesquisaAleatorio };
