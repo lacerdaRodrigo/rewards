@@ -38,6 +38,7 @@ test("Login conta Microsoft - Aprimorado", async ({ page, context }) => {
 
   // Salva o estado de autenticação APENAS se o login foi bem-sucedido
   await page.context().storageState({ path: authFile });
+  console.log("✅ Login bem-sucedido e estado salvo!");
 });
 
 test.describe("Testes com Login Pré-Autenticado", () => {
