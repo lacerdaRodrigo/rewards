@@ -36,15 +36,17 @@ O Playwright é um framework moderno e robusto para automação de testes de apl
 
 Por ser uma tecnologia recente e em constante evolução, o Playwright oferece vantagens competitivas em relação a frameworks mais antigos, tornando-o uma excelente escolha para automação de fluxos complexos como o deste projeto.
 
-## Por que usamos o Faker.js?
+## Função pesquisaAleatorio
 
-O [Faker.js](https://www.npmjs.com/package/@faker-js/faker) é uma biblioteca para geração de dados aleatórios e fictícios ("fake data"). Utilizamos o Faker.js neste projeto para:
+Para simular buscas humanas e naturais, o projeto utiliza a função `pesquisaAleatorio`, que retorna um termo de pesquisa aleatório a partir de um array extenso de buscas reais e populares. Isso aumenta a chance de as pesquisas serem contabilizadas pelo Bing Rewards.
 
-- **Simular buscas reais:** Gerar termos de pesquisa variados e aleatórios, tornando o comportamento da automação mais próximo de um usuário humano.
-- **Evitar padrões repetitivos:** Reduzir o risco de bloqueio por sistemas anti-bot, já que as buscas não seguem sempre o mesmo padrão.
-- **Testar diferentes cenários:** Permitir que os testes cubram uma gama maior de situações, aumentando a robustez da automação.
+Exemplo de uso:
 
-Assim, o uso do Faker.js contribui diretamente para a eficácia e segurança do processo de automação de buscas e acúmulo de pontos no Bing Rewards.
+```js
+await paginaBing.fazerPesquisa(pesquisaAleatorio());
+```
+
+Você pode encontrar e editar a lista de termos dentro da função `pesquisaAleatorio` no arquivo `tests/test.spec.js`.
 
 ## Por que usamos o dotenv?
 
