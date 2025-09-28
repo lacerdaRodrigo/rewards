@@ -1,12 +1,13 @@
 name: Playwright Tests
 
 on:
+  workflow_dispatch: # Permite rodar manualmente pelo botão no GitHub
   push:
     branches: [main, master]
   pull_request:
     branches: [main, master]
   schedule:
-    - cron: "0 9 * * *" # Roda todo dia às 06:00 BRT
+    - cron: "0 9 * * *" # Roda todo dia às 06:00 BRT (09:00 UTC)
 
 jobs:
   test:
@@ -52,7 +53,7 @@ jobs:
           body: |
             Olá,
 
-            Dev , os testes de Playwright foram concluídos.
+            Os testes de Playwright foram concluídos.
             Status dos testes: ${{ job.status }}.
 
             O relatório completo está ANEXADO neste email como **report.pdf**.

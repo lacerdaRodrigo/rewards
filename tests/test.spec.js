@@ -9,6 +9,19 @@ import fs from "fs";
 const nome = faker.person.fullName();
 const authFile = path.join(__dirname, ".playwright-auth/.auth/user.json");
 
+const nomes = [
+  "Rodrigo",
+  "Ana",
+  "Carlos",
+  "Mariana",
+  "Lucas",
+  "Beatriz",
+  "Felipe",
+  "Camila",
+  "Gustavo",
+  "Juliana",
+];
+
 test.use({ locale: "pt-BR" });
 
 test("Login conta Microsoft - Aprimorado", async ({ page, context }) => {
@@ -51,8 +64,8 @@ test.describe("Testes com Login Pré-Autenticado", () => {
     await expect(page.locator("//span[text()='Rodrigo']")).toHaveText(
       "Rodrigo"
     ); // Verifica se o seu nome (ou algum indicador de login) está visível
-    await page.waitForTimeout(10000);
-    await paginaBing.fazerPesquisa(nome);
+
+    await paginaBing.fazerPesquisa("Como fazer bolo de cenoura");
     await paginaBing.clicarBotaoPesquisar();
     await page.waitForTimeout(10000);
   });
@@ -65,8 +78,8 @@ test.describe("Testes com Login Pré-Autenticado", () => {
     await expect(page.locator("//span[text()='Rodrigo']")).toHaveText(
       "Rodrigo"
     ); // Verifica se o seu nome (ou algum indicador de login) está visível
-    await page.waitForTimeout(10000);
-    await paginaBing.fazerPesquisa(nome);
+
+    await paginaBing.fazerPesquisa("Lavar roupas com amaciante e correto?");
     await paginaBing.clicarBotaoPesquisar();
     await page.waitForTimeout(10000);
   });
@@ -79,8 +92,8 @@ test.describe("Testes com Login Pré-Autenticado", () => {
     await expect(page.locator("//span[text()='Rodrigo']")).toHaveText(
       "Rodrigo"
     ); // Verifica se o seu nome (ou algum indicador de login) está visível
-    await page.waitForTimeout(10000);
-    await paginaBing.fazerPesquisa(nome);
+
+    await paginaBing.fazerPesquisa("Playstation 5 vale a pena?");
     await paginaBing.clicarBotaoPesquisar();
     await page.waitForTimeout(10000);
   });
@@ -93,8 +106,8 @@ test.describe("Testes com Login Pré-Autenticado", () => {
     await expect(page.locator("//span[text()='Rodrigo']")).toHaveText(
       "Rodrigo"
     ); // Verifica se o seu nome (ou algum indicador de login) está visível
-    await page.waitForTimeout(10000);
-    await paginaBing.fazerPesquisa(nome);
+
+    await paginaBing.fazerPesquisa("Carros elétricos são o futuro?");
     await paginaBing.clicarBotaoPesquisar();
     await page.waitForTimeout(10000);
   });
@@ -107,8 +120,8 @@ test.describe("Testes com Login Pré-Autenticado", () => {
     await expect(page.locator("//span[text()='Rodrigo']")).toHaveText(
       "Rodrigo"
     ); // Verifica se o seu nome (ou algum indicador de login) está visível
-    await page.waitForTimeout(10000);
-    await paginaBing.fazerPesquisa(nome);
+
+    await paginaBing.fazerPesquisa("Atletico mg");
     await paginaBing.clicarBotaoPesquisar();
     await page.waitForTimeout(10000);
   });
@@ -121,8 +134,8 @@ test.describe("Testes com Login Pré-Autenticado", () => {
     await expect(page.locator("//span[text()='Rodrigo']")).toHaveText(
       "Rodrigo"
     ); // Verifica se o seu nome (ou algum indicador de login) está visível
-    await page.waitForTimeout(10000);
-    await paginaBing.fazerPesquisa(nome);
+
+    await paginaBing.fazerPesquisa("Conversor de polegada para milimetro");
     await paginaBing.clicarBotaoPesquisar();
     await page.waitForTimeout(10000);
   });
@@ -135,8 +148,8 @@ test.describe("Testes com Login Pré-Autenticado", () => {
     await expect(page.locator("//span[text()='Rodrigo']")).toHaveText(
       "Rodrigo"
     ); // Verifica se o seu nome (ou algum indicador de login) está visível
-    await page.waitForTimeout(10000);
-    await paginaBing.fazerPesquisa(nome);
+
+    await paginaBing.fazerPesquisa("Carros da Fiat ");
     await paginaBing.clicarBotaoPesquisar();
     await page.waitForTimeout(10000);
   });
@@ -149,8 +162,8 @@ test.describe("Testes com Login Pré-Autenticado", () => {
     await expect(page.locator("//span[text()='Rodrigo']")).toHaveText(
       "Rodrigo"
     ); // Verifica se o seu nome (ou algum indicador de login) está visível
-    await page.waitForTimeout(10000);
-    await paginaBing.fazerPesquisa(nome);
+
+    await paginaBing.fazerPesquisa("Futebol copa libertadores");
     await paginaBing.clicarBotaoPesquisar();
     await page.waitForTimeout(10000);
   });
@@ -163,8 +176,8 @@ test.describe("Testes com Login Pré-Autenticado", () => {
     await expect(page.locator("//span[text()='Rodrigo']")).toHaveText(
       "Rodrigo"
     ); // Verifica se o seu nome (ou algum indicador de login) está visível
-    await page.waitForTimeout(10000);
-    await paginaBing.fazerPesquisa(nome);
+
+    await paginaBing.fazerPesquisa("Guerra atuais");
     await paginaBing.clicarBotaoPesquisar();
     await page.waitForTimeout(10000);
   });
@@ -177,8 +190,8 @@ test.describe("Testes com Login Pré-Autenticado", () => {
     await expect(page.locator("//span[text()='Rodrigo']")).toHaveText(
       "Rodrigo"
     ); // Verifica se o seu nome (ou algum indicador de login) está visível
-    await page.waitForTimeout(10000);
-    await paginaBing.fazerPesquisa(nome);
+
+    await paginaBing.fazerPesquisa("Contrato de trabalho regras");
     await paginaBing.clicarBotaoPesquisar();
     await page.waitForTimeout(10000);
     await limparPastaAuth();
