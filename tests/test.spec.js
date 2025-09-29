@@ -45,8 +45,9 @@ test.describe("Testes com Login Pré-Autenticado", () => {
   test.use({ storageState: authFile }); //CARREGA O ARQUIVO DE AUTENTICAÇÃO AQUI!
 
   test("Executar 30 pesquisas aleatórias no Bing", async ({ page }) => {
+    await page.waitForTimeout(5000);
     const paginaBing = new PaginaBing(page);
-    await limparPastaAuth();
+
     // Abre só UMA vez
     await paginaBing.siteBing("https://www.bing.com/");
 
@@ -54,16 +55,19 @@ test.describe("Testes com Login Pré-Autenticado", () => {
       "Rodrigo"
     );
 
+    await page.waitForTimeout(5000);
     for (let i = 1; i <= 30; i++) {
       console.log(`🔁 Execução ${i}`);
 
       await paginaBing.fazerPesquisa(pesquisaAleatorio);
+      await page.waitForTimeout(5000);
       await paginaBing.clicarBotaoPesquisar();
 
       await page.waitForTimeout(10000);
 
       // Voltar para a home DO JEITO CERTO
       await page.goto("https://www.bing.com/");
+      await page.waitForTimeout(5000);
     }
   });
 
