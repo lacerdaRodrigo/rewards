@@ -12,7 +12,7 @@ export class LoginMicrosoft {
         this.page.getByLabel("Email ou número de telefone")
       ).toBeVisible();
 
-      await this.page.waitForTimeout(5500); // 5.5 segundos Espera a página carregar
+      await this.page.waitForTimeout(6000); // 6 segundos Espera a página carregar
       const email = this.page.getByLabel("Email ou número de telefone");
       await email.type(EMAIL, { delay: 250 }); // Digitação do E-mail (com delay)
       await this.page.waitForTimeout(6000); // 6.0 segundos Espera a página carregar

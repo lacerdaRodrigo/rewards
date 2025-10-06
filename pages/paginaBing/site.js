@@ -8,7 +8,7 @@ export class PaginaBing {
   async siteBing(url) {
     try {
       await this.page.goto(url, { waitUntil: "load" });
-      await this.page.waitForTimeout(5500); // 5.5 segundos Espera a página carregar
+      await this.page.waitForTimeout(6000); // 6 segundos Espera a página carregar
     } catch (error) {
       console.error(`Erro ao navegar para ${url}:`, error);
       throw error;
@@ -20,7 +20,7 @@ export class PaginaBing {
       const entrar = this.page.locator("#id_l");
       await entrar.waitFor({ state: "visible", timeout: 60000 });
       await entrar.click();
-      await this.page.waitForTimeout(5500); // 5.5 segundos Espera a página carregar
+      await this.page.waitForTimeout(6000); // 6 segundos Espera a página carregar
     } catch (error) {
       console.error("Erro ao clicar no botão Entrar:", error);
       throw error;

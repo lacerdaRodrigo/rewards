@@ -18,7 +18,7 @@ async function generatePDF() {
   });
 
   await browser.close();
-  console.log("✅ PDF gerado com sucesso: report.pdf");
+  console.log(" PDF gerado com sucesso: report.pdf");
 }
 
 generatePDF();

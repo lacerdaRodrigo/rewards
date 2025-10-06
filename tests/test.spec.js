@@ -1,12 +1,10 @@
 // @ts-check
 import { test, expect } from "@playwright/test";
 import path from "path";
-import { faker } from "@faker-js/faker";
 import { PaginaBing } from "../pages/paginaBing/site";
 import { LoginMicrosoft } from "../pages/login/login";
 import fs from "fs";
 
-const nome = faker.person.fullName();
 const authFile = path.join(__dirname, ".playwright-auth/.auth/user.json");
 
 test.use({ locale: "pt-BR" });
@@ -26,6 +24,7 @@ test("Login conta Microsoft - Aprimorado", async ({ page, context }) => {
     );
   }
 
+  await limparPastaAuth(); //limpa a pasta  de login antes de iniciar
   await paginaBing.siteBing("https://www.bing.com/");
   await paginaBing.clicarBotaoEntrar();
 
@@ -38,10 +37,10 @@ test("Login conta Microsoft - Aprimorado", async ({ page, context }) => {
 
   // Salva o estado de autenticação APENAS se o login foi bem-sucedido
   await page.context().storageState({ path: authFile });
-  console.log("✅ Login bem-sucedido e estado salvo!");
+  console.log("Login bem-sucedido e estado salvo!");
 });
 
-test.describe("Testes com Login Pré-Autenticado", () => {
+test.describe("Testes Pesquisando no Bing", () => {
   test.use({ storageState: authFile }); //CARREGA O ARQUIVO DE AUTENTICAÇÃO AQUI!
 
   test("Executar 30 pesquisas aleatórias no Bing", async ({ page }) => {
@@ -70,147 +69,6 @@ test.describe("Testes com Login Pré-Autenticado", () => {
       await page.waitForTimeout(5000);
     }
   });
-
-  // test("Nome faker 01", async ({ page }) => {
-  //   const paginaBing = new PaginaBing(page);
-
-  //   await paginaBing.siteBing("https://www.bing.com/");
-
-  //   await expect(page.locator("//span[text()='Rodrigo']")).toHaveText(
-  //     "Rodrigo"
-  //   ); // Verifica se o seu nome (ou algum indicador de login) está visível
-
-  //   await paginaBing.fazerPesquisa(pesquisaAleatorio);
-  //   await paginaBing.clicarBotaoPesquisar();
-  //   await page.waitForTimeout(10000);
-  // });
-
-  // test("Nome faker 02", async ({ page }) => {
-  //   const paginaBing = new PaginaBing(page);
-
-  //   await paginaBing.siteBing("https://www.bing.com/");
-
-  //   await expect(page.locator("//span[text()='Rodrigo']")).toHaveText(
-  //     "Rodrigo"
-  //   ); // Verifica se o seu nome (ou algum indicador de login) está visível
-
-  //   await paginaBing.fazerPesquisa(pesquisaAleatorio);
-  //   await paginaBing.clicarBotaoPesquisar();
-  //   await page.waitForTimeout(10000);
-  // });
-
-  // test("Nome faker 03", async ({ page }) => {
-  //   const paginaBing = new PaginaBing(page);
-
-  //   await paginaBing.siteBing("https://www.bing.com/");
-
-  //   await expect(page.locator("//span[text()='Rodrigo']")).toHaveText(
-  //     "Rodrigo"
-  //   ); // Verifica se o seu nome (ou algum indicador de login) está visível
-
-  //   await paginaBing.fazerPesquisa(pesquisaAleatorio);
-  //   await paginaBing.clicarBotaoPesquisar();
-  //   await page.waitForTimeout(10000);
-  // });
-
-  // test("Nome faker 04", async ({ page }) => {
-  //   const paginaBing = new PaginaBing(page);
-
-  //   await paginaBing.siteBing("https://www.bing.com/");
-
-  //   await expect(page.locator("//span[text()='Rodrigo']")).toHaveText(
-  //     "Rodrigo"
-  //   ); // Verifica se o seu nome (ou algum indicador de login) está visível
-
-  //   await paginaBing.fazerPesquisa(pesquisaAleatorio);
-  //   await paginaBing.clicarBotaoPesquisar();
-  //   await page.waitForTimeout(10000);
-  // });
-
-  // test("Nome faker 05", async ({ page }) => {
-  //   const paginaBing = new PaginaBing(page);
-
-  //   await paginaBing.siteBing("https://www.bing.com/");
-
-  //   await expect(page.locator("//span[text()='Rodrigo']")).toHaveText(
-  //     "Rodrigo"
-  //   ); // Verifica se o seu nome (ou algum indicador de login) está visível
-
-  //   await paginaBing.fazerPesquisa(pesquisaAleatorio);
-  //   await paginaBing.clicarBotaoPesquisar();
-  //   await page.waitForTimeout(10000);
-  // });
-
-  // test("Nome faker 06", async ({ page }) => {
-  //   const paginaBing = new PaginaBing(page);
-
-  //   await paginaBing.siteBing("https://www.bing.com/");
-
-  //   await expect(page.locator("//span[text()='Rodrigo']")).toHaveText(
-  //     "Rodrigo"
-  //   ); // Verifica se o seu nome (ou algum indicador de login) está visível
-
-  //   await paginaBing.fazerPesquisa(pesquisaAleatorio);
-  //   await paginaBing.clicarBotaoPesquisar();
-  //   await page.waitForTimeout(10000);
-  // });
-
-  // test("Nome faker 07", async ({ page }) => {
-  //   const paginaBing = new PaginaBing(page);
-
-  //   await paginaBing.siteBing("https://www.bing.com/");
-
-  //   await expect(page.locator("//span[text()='Rodrigo']")).toHaveText(
-  //     "Rodrigo"
-  //   ); // Verifica se o seu nome (ou algum indicador de login) está visível
-
-  //   await paginaBing.fazerPesquisa(pesquisaAleatorio);
-  //   await paginaBing.clicarBotaoPesquisar();
-  //   await page.waitForTimeout(10000);
-  // });
-
-  // test("Nome faker 08", async ({ page }) => {
-  //   const paginaBing = new PaginaBing(page);
-
-  //   await paginaBing.siteBing("https://www.bing.com/");
-
-  //   await expect(page.locator("//span[text()='Rodrigo']")).toHaveText(
-  //     "Rodrigo"
-  //   ); // Verifica se o seu nome (ou algum indicador de login) está visível
-
-  //   await paginaBing.fazerPesquisa(pesquisaAleatorio);
-  //   await paginaBing.clicarBotaoPesquisar();
-  //   await page.waitForTimeout(10000);
-  // });
-
-  // test("Nome faker 09", async ({ page }) => {
-  //   const paginaBing = new PaginaBing(page);
-
-  //   await paginaBing.siteBing("https://www.bing.com/");
-
-  //   await expect(page.locator("//span[text()='Rodrigo']")).toHaveText(
-  //     "Rodrigo"
-  //   ); // Verifica se o seu nome (ou algum indicador de login) está visível
-
-  //   await paginaBing.fazerPesquisa(pesquisaAleatorio);
-  //   await paginaBing.clicarBotaoPesquisar();
-  //   await page.waitForTimeout(10000);
-  // });
-
-  // test("Nome faker 10", async ({ page }) => {
-  //   const paginaBing = new PaginaBing(page);
-
-  //   await paginaBing.siteBing("https://www.bing.com/");
-
-  //   await expect(page.locator("//span[text()='Rodrigo']")).toHaveText(
-  //     "Rodrigo"
-  //   ); // Verifica se o seu nome (ou algum indicador de login) está visível
-
-  //   await paginaBing.fazerPesquisa(pesquisaAleatorio);
-  //   await paginaBing.clicarBotaoPesquisar();
-  //   await page.waitForTimeout(10000);
-  //   await limparPastaAuth();
-  // });
 });
 
 function limparPastaAuth() {
@@ -352,7 +210,7 @@ function criarGeradorDePesquisas() {
   };
 }
 
-// ✅ Cria o gerador (isso é reiniciado a cada execução da pipeline)
+// Cria o gerador (isso é reiniciado a cada execução da pipeline)
 const pesquisaAleatorio = criarGeradorDePesquisas();
 
 export { pesquisaAleatorio };
