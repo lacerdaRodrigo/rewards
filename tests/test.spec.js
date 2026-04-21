@@ -50,6 +50,7 @@ test.describe("Testes Pesquisando no Bing", () => {
     // Abre só UMA vez
     await paginaBing.siteBing("https://www.bing.com/");
 
+    await page.locator("#bnp_btn_accept").click()
     await expect(page.locator("//span[text()='Rodrigo']")).toHaveText(
       "Rodrigo"
     );
