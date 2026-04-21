@@ -50,7 +50,10 @@ test.describe("Testes Pesquisando no Bing", () => {
     // Abre só UMA vez
     await paginaBing.siteBing("https://www.bing.com/");
 
-    await page.locator("#bnp_btn_accept").click()
+    const botaoAceitarCookies = page.locator("#bnp_btn_accept");
+    if (await botaoAceitarCookies.isVisible().catch(() => false)) {
+      await botaoAceitarCookies.click();
+    }
     await expect(page.locator("//span[text()='Rodrigo']")).toHaveText(
       "Rodrigo"
     );
