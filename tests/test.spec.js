@@ -4,7 +4,7 @@ import path from "path";
 import { PaginaBing } from "../pages/paginaBing/site";
 import { LoginMicrosoft } from "../pages/login/login";
 import fs from "fs";
-
+ //
 const authFile = path.join(__dirname, ".playwright-auth/.auth/user.json");
 
 test.use({ locale: "pt-BR" });
